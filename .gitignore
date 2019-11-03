@@ -2,3 +2,5 @@
 /.vscode
 foo.cpp
 test.cpp
+.DS_Store
+Algorithm.xcodeproj/
