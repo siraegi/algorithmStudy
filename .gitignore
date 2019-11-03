@@ -4,3 +4,4 @@ foo.cpp
 test.cpp
 .DS_Store
 non-solved.xcodeproj/
+non-solved/
