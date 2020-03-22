@@ -1,6 +1,6 @@
 /*
     BOJ 1260.cpp
-    DFS와 BFS
+    DFS�� BFS
     https://www.acmicpc.net/problem/1260
 */
 
@@ -24,7 +24,6 @@ void DFS(int node){
 void BFS(int start){
     queue<int> q;
     q.push(start);
-    visit[start] = true;
     while(!q.empty()){
         int node = q.front();
         cout << node << " ";
@@ -33,6 +32,7 @@ void BFS(int start){
         for(int i=0;i<g[node].size();i++){
             if(!visit[g[node][i]]){
                 q.push(g[node][i]);
+                visit[g[node][i]] = true;
             }
         }
     }
@@ -47,7 +47,6 @@ int main(){
         g[y].push_back(x);
     }
 
-    // 단, 방문할 수 있는 정점이 여러 개인 경우에는 정점 번호가 작은 것을 먼저 방문
     for(int i=1;i<=N;i++){
         sort(g[i].begin(), g[i].end()); 
     }
