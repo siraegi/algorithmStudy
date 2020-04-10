@@ -14,12 +14,12 @@ struct edge{
 };
 void BFS(vector<edge>* g, int* parent, int* depth, int* dist, int n){
     bool check[n+1]={false,};
-    queue<int> q;
-    q.push(1);
     check[1] = true;
     depth[1] = 0;
     parent[1] = 0;
     dist[1] = 0;
+    queue<int> q;
+    q.push(1);
     while(!q.empty()){
         int now = q.front();
         q.pop();
@@ -29,24 +29,22 @@ void BFS(vector<edge>* g, int* parent, int* depth, int* dist, int n){
             if(!check[next]){
                 check[next] = true;
                 parent[next] = now;
-                depth[next] = depth[now] + 1;
                 dist[next] = cost;
+                depth[next] = depth[now] + 1;
                 q.push(next);
             }
         }
     }
 }
-int LCA(vector<edge>* g, int* parent, int* depth, int* dist, int a, int b){
+int LCA(int* parent, int* depth, int* dist, int a, int b){
     int distance = 0;
-    if(depth[a] < depth[b])
+    if(depth[a]<depth[b])
         swap(a,b);
-    
-    while(depth[a] != depth[b]){
+    while(depth[a]!=depth[b]){
         distance += dist[a];
         a = parent[a];
     }
-    
-    while(a != b){
+    while(a!=b){
         distance += (dist[a]+dist[b]);
         a = parent[a];
         b = parent[b];
@@ -54,22 +52,22 @@ int LCA(vector<edge>* g, int* parent, int* depth, int* dist, int a, int b){
     return distance;
 }
 int main(){
-    int N, M, a, b, c;
-    cin >> N;
-    vector<edge> g[N+1];
-    int parent[N+1]={0,};
-    int depth[N+1]={0,};
-    int dist[N+1]={0,};
-    for(int i=1;i<N;i++){ 
+    int n, m, a, b, c;
+    cin >> n;
+    vector<edge> g[n+1];
+    int depth[n+1]={0,};
+    int dist[n+1]={0,};
+    int parent[n+1]={0,};
+    for(int i=1;i<n;i++){
         cin >> a >> b >> c;
         g[a].push_back(edge(b,c));
         g[b].push_back(edge(a,c));
     }
-    BFS(g, parent, depth, dist, N);
-    cin >> M;
-    for(int i=0;i<M;i++){
+    BFS(g,parent,depth,dist,n);
+    cin >> m;
+    for(int i=0;i<m;i++){
         cin >> a >> b;
-        cout << LCA(g, parent, depth, dist, a, b) << "\n";
+        cout << LCA(parent, depth, dist, a, b) << "\n";
     }
     return 0;
 }
